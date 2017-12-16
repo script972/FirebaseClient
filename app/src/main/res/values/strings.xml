@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">TestEx</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="prompt_password_confirm">Password confirm</string>
+    <string name="act_title_authorization">Log in</string>
+    <string name="act_title_registration">Registration</string>
+    <string name="t_validate_data_error">Invalid data</string>
+    <string name="t_authorization_success">Authorization success</string>
+    <string name="t_authorization_fail">Authorization fail</string>
+    <string name="t_registration_success">Registration success</string>
+    <string name="t_registration_fail">Registration fail</string>
+    <string name="b_sign_in">Sign in</string>
+    <string name="b_registration">Registration</string>
+    <string name="b_no_account">No account</string>
+</resources>
