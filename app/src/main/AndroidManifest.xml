@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/act_title_authorization">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +25,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.RegistrationUserActivity"
+            android:name=".activity.RegistrationUserActivity"
             android:label="@string/act_title_registration" />
+        <activity
+            android:name=".activity.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PersonalInfoActivity"
+            android:label="@string/title_activity_personal_info"
+            />
+        <activity android:name=".activity.NewsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activity.PeopleActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestEx</string>
+    <string name="app_name">Test Ex</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -22,4 +22,26 @@
     <string name="b_sign_in">Sign in</string>
     <string name="b_registration">Registration</string>
     <string name="b_no_account">No account</string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_personal_info">Personal Info</string>
+    <string name="t_login_fail">Login fail</string>
+    <string name="h_first_name">First Name</string>
+    <string name="h_last_name">Last Name</string>
+    <string name="h_country">Country</string>
+    <string name="h_phone">Phone</string>
+    <string name="h_birthday">Birthday</string>
+    <string name="b_send_data">Registration</string>
+    <string name="h_city">City</string>
+    <string name="error_invalid_field">Invalid field</string>
+    <string name="menu_news">News</string>
+    <string name="menu_sources">Sources</string>
+    <string name="menu_wather">Wather</string>
+    <string name="menu_people">People</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_exit">Exit</string>
 </resources>

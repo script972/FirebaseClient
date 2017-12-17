@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/ic_newspaper"
+            android:title="@string/menu_news" />
+        <item
+            android:id="@+id/nav_sources"
+            android:icon="@drawable/ic_remote"
+            android:title="@string/menu_sources" />
+        <item
+            android:id="@+id/nav_wather"
+            android:icon="@drawable/ic_earth"
+            android:title="@string/menu_wather" />
+        <item
+            android:id="@+id/nav_peole"
+            android:icon="@drawable/ic_account_multiple"
+            android:title="@string/menu_people" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_edit"
+            android:title="@string/menu_profile" />
+
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_exit_to_app"
+            android:title="@string/menu_exit" />
+    </group>
+
+
+
+</menu>

@@ -1,9 +1,9 @@
-package com.script972.testex.view;
+package com.script972.testex.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.LoaderManager.LoaderCallbacks;
+import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -20,62 +20,59 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.script972.testex.R;
 import com.script972.testex.presenter.LoginPresenterImpl;
-import com.script972.testex.presenter.iterafaces.LoginPresenter;
+import com.script972.testex.presenter.iterafaces.login.RegistrationPresenter;
 import com.script972.testex.utils.EmailRegular;
+import com.script972.testex.view.LoginView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-/**
- * A login screen that offers login via email/password.
- */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
+public class RegistrationUserActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, LoginView {
 
     private static final int REQUEST_READ_CONTACTS = 0;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private EditText mPasswordConfirmView;
     private View mProgressView;
     private View mLoginFormView;
 
-    private LoginPresenter loginPresener;
+   private RegistrationPresenter registrationPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        loginPresener =new LoginPresenterImpl(this);
+        setContentView(R.layout.activity_registration_user);
+        registrationPresenter=new LoginPresenterImpl(this);
+        registrationPresenter.initAuthorization();
         initView();
-    }
+       // initFirebase();
 
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        loginPresener.onStart();
+        registrationPresenter.onStart();
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        loginPresener.onStop();
+        registrationPresenter.onStop();
 
     }
 
@@ -84,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordConfirmView=(EditText)findViewById(R.id.passwordconfirm);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -95,13 +93,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -229,7 +220,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), RegistrationUserActivity.ProfileQuery.PROJECTION,
 
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
@@ -243,7 +234,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
+            emails.add(cursor.getString(RegistrationUserActivity.ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
         addEmailsToAutoComplete(emails);
@@ -257,28 +248,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(RegistrationUserActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
     }
 
-    public void signInB(View view) {
-        Log.d("login", "button signIn");
+
+
+    public void registrationB(View view) {
         String email= String.valueOf(mEmailView.getText());
         String pass= String.valueOf(mPasswordView.getText());
-        if(isEmailValid(email) && isPasswordValid(pass))
-            loginPresener.login(email, pass);
+        String passConfirm= String.valueOf(mPasswordConfirmView.getText());
+        if(isEmailValid(email) && isPasswordValid(pass) && passConfirm.equals(pass))
+            registrationPresenter.registration(email, pass);
         else
             Toast.makeText(this, getResources().getString(R.string.t_validate_data_error),Toast.LENGTH_LONG).show();
 
     }
 
-    public void registrationB(View view) {
-        Log.d("login", "button registration open activity");
-        Intent intent = new Intent(this, RegistrationUserActivity.class);
+    @Override
+    public void loginSuccess() {
+        Log.d("login", "Registration success");
+        Intent intent=new Intent(this, PersonalInfoActivity.class);
         startActivity(intent);
+    }
 
+    @Override
+    public void loginFail() {
+        Log.d("login", "Registration fail");
+        Toast.makeText(this, this.getResources().getString(R.string.t_registration_fail), Toast.LENGTH_LONG).show();
     }
 
 
@@ -289,8 +288,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
-}
 
+
+}

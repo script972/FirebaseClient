@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.script972.testex.view.LoginActivity">
+    tools:context="com.script972.testex.activity.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar
@@ -36,6 +36,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
+                    style="@style/CustomLoginEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -51,6 +52,7 @@
 
                 <EditText
                     android:id="@+id/password"
+                    style="@style/CustomLoginEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -75,7 +77,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/b_sign_in"
-                android:onClick="signInB"
                 android:layout_weight="5"
                 android:textStyle="bold" />
 
